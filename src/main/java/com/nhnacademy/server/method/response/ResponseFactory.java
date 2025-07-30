@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public class ResponseFactory {
 
      */
 
-    private static final ArrayList<Response> responseList = new ArrayList<>();
+    private static final List<Response> responseList = new ArrayList<>();
     //maven-repository : https://mvnrepository.com/artifact/org.reflections/reflections
     //[참고] https://www.baeldung.com/reflections-library
     
