@@ -66,21 +66,28 @@ public class MessageServer implements Runnable {
                     System.out.println("[server]recv-message:" + recvMessage);
                     // TODO#1-10 MethodParser를 이용해서 recvMessage를 파싱 합니다.
 
-                    MethodParser.MethodAndValue methodAndValue = null;
+                    MethodParser.MethodAndValue methodAndValue = MethodParser.parse(recvMessage);
 
                     log.debug("method:{},value:{}", methodAndValue.getMethod(), methodAndValue.getValue());
 
                     // TODO#1-11 ResponseFactory를 이용해서 methodAndValue.getMethod()에 해당되는 response를
                     // 얻습니다.
                     Response response = null;
+                    try {
+                        // TODO [insub] step2 단계에선, 임의로 Factory의 list안에 EchoResponse 하나를 넣어놨음
+                        response = ResponseFactory.getResponse(methodAndValue.getMethod());
+                    }catch (ResponseNotFoundException re){
+                        //ResponseNotFoundException 발생하면 로그로 남김니다.
+                        log.debug("response not found : {}", re.getMessage());
+                    }
 
                     String sendMessage;
                     if (Objects.nonNull(response)) {
                         // TODO#1-12 methodAndValue.getValue() 이용해서 response를 실행 합니다.
-                        sendMessage = null;
+                        sendMessage = methodAndValue.getValue();
                     } else {
                         // TODO#1-13 response가 null 이면 sendMessage를 "{echo} method not found" 로 설정 합니다.
-                        sendMessage = "something";
+                        sendMessage = "{%s} method not found".formatted(methodAndValue.getMethod());
                     }
                     out.println(sendMessage);
                     out.flush();

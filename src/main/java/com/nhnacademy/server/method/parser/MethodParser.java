@@ -12,10 +12,11 @@
 
 package com.nhnacademy.server.method.parser;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
-
+@Slf4j
 public class MethodParser {
 
     public static MethodAndValue parse(String message) {
@@ -36,6 +37,7 @@ public class MethodParser {
             if (strings.length == 1) {
                 return new MethodAndValue(strings[0], "");
             }
+            log.debug("method = {}, value = {}", strings[0], strings[1]);
             return new MethodAndValue(strings[0], strings[1]);
         }
         return null;
@@ -58,7 +60,7 @@ public class MethodParser {
 
         public String getValue() {
             // TODO#1-4 value 반환 하빈다.
-            return null;
+            return value;
         }
     }
 }

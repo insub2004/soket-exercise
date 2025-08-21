@@ -18,6 +18,7 @@ public interface Response {
 
     String execute(String value);
 
+    // TODO [insub] method에 따라서 실행되어야 할 Response 구현체를 식별 하는 방법을 이렇게
     default boolean validate(String method) {
         /*
          * TODO#1-7 Response interface를 구현한 구현체(EchoResponse)의 method가 parameter로 전달되는
@@ -27,7 +28,7 @@ public interface Response {
          * true
          * - getMethod()를 이용해서 구현하세요.
          */
-        return false;
+        return getMethod().equals(method);
     }
 
 }

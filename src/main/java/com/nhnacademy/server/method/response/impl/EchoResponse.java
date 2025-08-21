@@ -14,6 +14,7 @@ package com.nhnacademy.server.method.response.impl;
 
 import com.nhnacademy.server.method.response.Response;
 
+// TODO [insub] Response의 구현체 중 하나인 EchoResponse는 실행(execute)하면 그냥 value를 리턴하게 되어있음
 public class EchoResponse implements Response {
     // echo method에 해당되는 응답을 구현 합니다.
 
@@ -22,7 +23,7 @@ public class EchoResponse implements Response {
     @Override
     public String getMethod() {
         // TODO#1-5 EchoResponse의 METHOD 를 반환 합니다.
-        return null;
+        return METHOD;
     }
 
     @Override
@@ -32,6 +33,6 @@ public class EchoResponse implements Response {
          * - ex) echo hello message -> method = echo , value = hello 임으로 value를 반환 합니다.
          */
 
-        return null;
+        return value;
     }
 }
