@@ -21,8 +21,7 @@ public interface Response {
     // TODO [insub] method에 따라서 실행되어야 할 Response 구현체를 식별 하는 방법을 이렇게
     default boolean validate(String method) {
         /*
-         * TODO#1-7 Response interface를 구현한 구현체(EchoResponse)의 method가 parameter로 전달되는
-         * method와 일치하면 true를 반환 합니다.
+         * TODO#1-7 Response interface를 구현한 구현체(EchoResponse)의 method가 parameter로 전달되는 method와 일치하면 true를 반환 합니다.
          * - method에 따라서 실행되어야 할 Response 구현체를 식별 합니다.
          * - ex) method 'echo' 인 response를 검증하기 위해서는 echoResponse.validate("echo") ==
          * true
