@@ -48,8 +48,8 @@ public class MessageServer implements Runnable {
         }
 
         //TODO#5-1 requestChannel, workerThreadPool 초기화 합니다.
-        requestChannel = null;
-        workerThreadPool = null;
+        requestChannel = new RequestChannel();
+        workerThreadPool = new WorkerThreadPool(new RequestHandler(requestChannel));
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MessageServer implements Runnable {
             try{
                 Socket client = serverSocket.accept();
                 //TODO#5-2 requestChannel에 MethodJob을 추가 합니다.
-
+                requestChannel.addJob(new MethodJob(client));
             }catch (Exception e){
                 log.debug("{}",e.getMessage(),e);
             }
