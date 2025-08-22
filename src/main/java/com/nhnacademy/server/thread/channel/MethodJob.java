@@ -37,6 +37,7 @@ public class MethodJob implements Executable {
     @Override
     public void execute() {
         //TODO#3-1 execute method 실행시 Session.initializeSocket()를 호출해서 client socket을 등록 합니다.
+        Session.initializeSocket(this.client);
 
         try (
              BufferedReader clientIn = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -74,13 +75,15 @@ public class MethodJob implements Executable {
                     /*TODO#3-2 로그인이 되어 있다면 client socket을 clientMap에서 제거 합니다.
                         Session.isLogin() 와 MessageServer.removeClient()를 이용해서 구현합니다.
                      */
-
+                    if (Session.isLogin()) {
+                        MessageServer.removeClient(Session.getCurrentId());
+                    }
                 }
             } catch (IOException e) {
                 log.error("error-client-close : {}",e.getMessage(),e);
             }
             //TODO#3-3 Session.reset()을 호출해서 초기화 합니다.
-
+            Session.reset();
         }
     }
 }
