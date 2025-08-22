@@ -27,7 +27,7 @@ public class ResponseFactory {
         add(new EchoResponse());
         add(new TimeResponse());
         //TODO#2 PortResponse 생성 후 추가 합니다.
-
+        add(new PortResponse());
     }};
 
     public static Response getResponse(String method){

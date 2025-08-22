@@ -19,6 +19,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class PortResponse implements Response {
@@ -27,6 +30,16 @@ public class PortResponse implements Response {
     @Override
     public String getMethod() {
         return METHOD;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override
@@ -58,8 +71,39 @@ public class PortResponse implements Response {
         TCP 127.0.0.1:62451
         TCP 127.0.0.1:64913
         */
-
+        
+        /*
+            TODO [insub] 전체 출력해보면
+Notes       672 insub   48u  IPv6 0x299135768e686a18      0t0  TCP [2001:2d8:2024:d735:3d33:b06:d352:7bf8]:53136->[64:ff9b::1139:9823]:imaps (ESTABLISHED)
+Notes       672 insub   49u  IPv6  0x3ad2f8c046ed7e1      0t0  TCP [2001:2d8:2024:d735:3d33:b06:d352:7bf8]:53138->[64:ff9b::1139:9823]:imaps (ESTABLISHED)
+Postman     687 insub   81u  IPv6 0x46b6f67057f1d0fa      0t0  TCP *:15611 (LISTEN)
+ControlCe   691 insub    8u  IPv4 0x8e4bdd5aa45b5bf0      0t0  TCP *:afs3-fileserver (LISTEN) 
+         */
         StringBuilder sb = new StringBuilder();
+        Map<String, String> resultMap = new HashMap<>();
+        String line = "";
+        try {
+            Process process = Runtime.getRuntime().exec("lsof -n -i");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            bufferedReader.readLine(); // 한 줄 버리기
+            while ((line=bufferedReader.readLine()) != null) {
+                if (line.contains("LISTEN")) {
+                    String[] strings = line.trim().split("\\s+");
+                    String protocal = strings[7];
+                    String port = strings[8];
+                    String result = String.format("%s %s %s", protocal, port, System.lineSeparator());
+                    log.debug("result:{}",result);
+                    if(StringUtils.isEmpty(value)){
+                        sb.append(result);
+                    }else if(StringUtils.isNotEmpty(value) && port.contains(value)){
+                        sb.append(result);
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         return sb.toString();
     }
