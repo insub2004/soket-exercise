@@ -28,16 +28,19 @@ public class MessageAreaChangeListener implements DocumentListener {
     @Override
     public void insertUpdate(DocumentEvent e) {
         //TODO#3-6-1 handleTextChange() method를 호출 합니다.
+        handleTextChange();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
         //TODO#3-6-2 handleTextChange() method를 호출 합니다.
+        handleTextChange();
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
         //TODO#3-6-3 handleTextChange() method를 호출 합니다.
+        handleTextChange();
     }
 
     private void handleTextChange(){

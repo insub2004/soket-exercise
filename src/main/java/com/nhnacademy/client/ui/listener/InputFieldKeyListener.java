@@ -37,8 +37,8 @@ public class InputFieldKeyListener implements KeyListener {
             - inputBox에서 enter를 입력하면 SendButtonEventListener에 구현 했던것 처럼 messageClientForm.getSubject().sendMessage()를 이용해서 메시지를 전송 합니다.
             - 즉 전송 이벤트를 발생 시킴니다.
         */
-            messageClientForm.getSubject().sendMessage(null);
-            messageClientForm.getInputField().setText(null);
+            messageClientForm.getSubject().sendMessage(messageClientForm.getInputField().getText());
+            messageClientForm.getInputField().setText("");
         }
     }
 

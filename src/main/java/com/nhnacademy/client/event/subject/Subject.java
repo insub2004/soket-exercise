@@ -14,6 +14,7 @@ package com.nhnacademy.client.event.subject;
 
 import com.nhnacademy.client.event.observer.Observer;
 
+// TODO [insub] Observer patter (Subject)
 public interface Subject {
     void register(EventType eventType, Observer observer);
     void remove(EventType eventType, Observer observer);

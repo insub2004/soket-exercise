@@ -33,6 +33,7 @@ public class SendButtonEventListener implements ActionListener {
         /*TODO#3-4-2 messageClientForm.getSubject().sendMessage()를 이용해서 messageClientForm.getInputField().getText()를 보냅니다.
             - 즉, 메시지 전송 이벤트를 발생 시킴니다.
          */
+        // TODO [insub] sendMessage(..) -> notifyObservers(EventType.SEND,message);
         messageClientForm.getSubject().sendMessage(messageClientForm.getInputField().getText());
 
         //TODO#3-4-3 messageClientForm.getInputField()의 text를 ""로 초기화 합니다.

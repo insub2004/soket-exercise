@@ -47,11 +47,11 @@ public class MessageClientForm {
         scrollPane = new JScrollPane(messageArea);
 
         //TODO#3-1 initializeUi()를 호출해서 ui를 초기화 합니다.
-
+        initializeUi();
         //TODO#3-2 configureEvent()를 호출해서 event를 설정 합니다.
-
+        configureEvent();
         //TODO#3-3 configureRecvObserver() 수신 event를 설정 합니다.
-
+        configureRecvObserver();
     }
 
     public JFrame getFrame() {
@@ -113,17 +113,17 @@ public class MessageClientForm {
         /*TODO#3-4 sendButton : event, send button을 클릭시 발생하는 이벤트 핸들러를 등록 합니다.
             - event listener : SendButtonEventListener
          */
-        sendButton.addActionListener(null);
+        sendButton.addActionListener(new SendButtonEventListener(this));
 
         /*TODO#3-5 inputField : key event, inputbox에 message를 입력 후 enter key를 누르면 메시지가 전송 됩니다.
             -  event listener : InputFieldKeyListener
          */
-        inputField.addKeyListener(null);
+        inputField.addKeyListener(new InputFieldKeyListener(this));
 
         /*TODO#3-6 messageArea : text change event, 서버로부터 message를 수신하면 UI에 message가 append 됩니다. 이 때 scroll을 맨 하단으로 이동시켜 UI접근성을 향상시키기 위해서 해당 이벤트를 등록 합니다.
             - event listener : MessageAreaChangeListener
          */
-        messageArea.getDocument().addDocumentListener(null);
+        messageArea.getDocument().addDocumentListener(new MessageAreaChangeListener(this));
     }
 
     private void configureRecvObserver(){
@@ -131,8 +131,9 @@ public class MessageClientForm {
             - message를 수신한 Observer를 subject에 등록 하세요
             - EventType.RECV 입니다.
          */
-        MessageAction messageAction =null;
-        Observer observer = null;
+        // TODO [insub] RecvMessageAction에서 UI Form을 이용해서 execute로 메시지를 보여줌
+        MessageAction messageAction = new RecvMessageAction(this);
+        Observer observer = new MessageRecvObserver(messageAction);
         subject.register(EventType.RECV, observer);
     }
 
@@ -141,7 +142,7 @@ public class MessageClientForm {
             @Override
             public void run() {
                 //TODO#3-7 MessageClientForm를 생성 합니다.
-
+                new MessageClientForm(subject);
             }
         });
     }
