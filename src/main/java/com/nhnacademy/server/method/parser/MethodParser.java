@@ -29,7 +29,7 @@ public class MethodParser {
         return null;
     }
 
-    public static class MethodAndValue{
+    public static class MethodAndValue {
         private final String method;
         private final String value;
 

@@ -15,9 +15,10 @@ package com.nhnacademy.server.method.response.impl;
 import com.nhnacademy.server.method.response.Response;
 import com.nhnacademy.server.runable.MessageServer;
 import com.nhnacademy.server.thread.channel.Session;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-
+@Slf4j
 public class LoginResponse implements Response {
     @Override
     public String getMethod() {
@@ -26,6 +27,7 @@ public class LoginResponse implements Response {
 
     @Override
     public String execute(String value) {
+        log.debug("LoginResponse execute() param : {}", value);
 
         if(value.equals("list")){
             List<String> ids = MessageServer.getClientIds();
